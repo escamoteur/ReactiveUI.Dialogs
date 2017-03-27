@@ -19,10 +19,21 @@ namespace ReactiveUI.Dialogs
         {
             if (OpenDialog != null)
             {
-                OpenDialog.Dispose();
+                OpenDialog?.Dispose();
                 OpenDialog = null;
             }
             return !DeviceInfo.App.IsBackgrounded;
+        }
+
+
+        public static void CloseOpenDialog()
+        {
+
+            if (OpenDialog != null)
+            {
+                OpenDialog?.Dispose();
+                OpenDialog = null;
+            }
         }
 
 
@@ -40,6 +51,21 @@ namespace ReactiveUI.Dialogs
 	    }
 
 
+        public static IDisposable AlertWhen<TSender>(this TSender This,
+            Expression<Func<TSender, AlertConfig>> property, string title = null, string okText = null)
+        {
+            return This.WhenAnyValue(property)
+                .Subscribe(config =>
+                {
+                    if (CheckPreCondition() && config != null)
+                    {
+                        UserDialogs.Instance.Alert(config);
+                    }
+                });
+        }
+
+
+
 
         public static IDisposable ToastWhen<TSender>(this TSender This,
             Expression<Func<TSender, string>> property, TimeSpan? dismissTimer = null)
@@ -53,6 +79,22 @@ namespace ReactiveUI.Dialogs
                     }
                 });
         }
+
+
+
+        public static IDisposable ToastWhen<TSender>(this TSender This,
+            Expression<Func<TSender, ToastConfig>> property, TimeSpan? dismissTimer = null)
+        {
+            return This.WhenAnyValue(property)
+                .Subscribe(config =>
+                {
+                    if (CheckPreCondition() && config!= null)
+                    {
+                        UserDialogs.Instance.Toast(config);
+                    }
+                });
+        }
+
 
 
         public static void ShowLoadingWhen<TSender>(this TSender This,
