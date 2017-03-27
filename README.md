@@ -72,6 +72,10 @@ public static IDisposable ShowLoadingWhen<TSender>(this TSender This,
 ```
 
 
+### Nuget
+>Install-Package ReactiveUI.Dialogs
+
+
 ### Important:
 Make sure to add the NUget to your Platform project too
 Call the UserDialogs Init method in your MainActivity on Android
