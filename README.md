@@ -58,16 +58,25 @@ Currently I support this methods:
 public static IDisposable AlertWhen<TSender>(this TSender This,
   Expression<Func<TSender, string>> property, string title = null, string okText = null)
 
+public static IDisposable AlertWhen<TSender>(this TSender This,
+    Expression<Func<TSender, AlertConfig>> property, string title = null, string okText = null)
+
 
 public static IDisposable ToastWhen<TSender>(this TSender This,
     Expression<Func<TSender, string>> property, TimeSpan? dismissTimer = null)
 
+public static IDisposable ToastWhen<TSender>(this TSender This,
+    Expression<Func<TSender, ToastConfig>> property, TimeSpan? dismissTimer = null)
 
-public static void ShowLoadingWhen<TSender>(this TSender This,
+
+// Disposing the returned Disposable ensures that the Spinner 
+// is hidden when the subscription is disposed
+
+public static LoadingDisposable ShowLoadingWhen<TSender>(this TSender This,
     Expression<Func<TSender, bool>> property, string title = null, MaskType? maskType = null)
 
 
-public static IDisposable ShowLoadingWhen<TSender>(this TSender This,
+public static LoadingDisposable ShowLoadingWhen<TSender>(this TSender This,
     Func<TSender,IObservable<bool>> busy, string title = null, MaskType? maskType = null)
 ```
 

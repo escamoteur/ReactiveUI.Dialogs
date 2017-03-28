@@ -13,6 +13,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DialogTest.iOS", "DialogTes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DialogTest.UWP", "DialogTest\DialogTest.UWP\DialogTest.UWP.csproj", "{24B19B80-4E06-4DA7-A66D-7E226CC25819}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4426887A-6451-44D8-A50B-295E67995DD9}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		DialogTest\DialogTest\DialogTest.projitems*{0c5eff9e-ae2e-490b-b6c6-a0cf42770f64}*SharedItemsImports = 4
