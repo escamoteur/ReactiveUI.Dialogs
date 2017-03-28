@@ -97,28 +97,29 @@ namespace ReactiveUI.Dialogs
 
 
 
-        public static void ShowLoadingWhen<TSender>(this TSender This,
+        public static LoadingDisposable ShowLoadingWhen<TSender>(this TSender This,
             Expression<Func<TSender, bool>> property, string title = null, MaskType? maskType = null)
         {
-            This.WhenAnyValue(property)
-                .Subscribe(show =>
-                {
-                    if (show)
+            return new LoadingDisposable( 
+                This.WhenAnyValue(property)
+                    .Subscribe(show =>
                     {
-                        UserDialogs.Instance.ShowLoading();
-                    }
-                    else
-                    {
-                        UserDialogs.Instance.HideLoading();
-                    }
-                });
+                        if (show)
+                        {
+                            UserDialogs.Instance.ShowLoading();
+                        }
+                        else
+                        {
+                            UserDialogs.Instance.HideLoading();
+                        }
+                    }));
         }
 
 
-        public static IDisposable ShowLoadingWhen<TSender>(this TSender This,
+        public static LoadingDisposable ShowLoadingWhen<TSender>(this TSender This,
             Func<TSender,IObservable<bool>> busy, string title = null, MaskType? maskType = null)
         {
-                return busy(This).Subscribe(show =>
+                return new LoadingDisposable(busy(This).Subscribe(show =>
                 {
                     if (show)
                     {
@@ -128,8 +129,24 @@ namespace ReactiveUI.Dialogs
                     {
                         UserDialogs.Instance.HideLoading();
                     }
-                });
+                }));
         }
 
+
+        
+    }
+
+    public class LoadingDisposable : IDisposable
+    {
+        public LoadingDisposable(IDisposable subscription)
+        {
+            this.subscription = subscription;
+        }
+        private IDisposable subscription;
+
+        public void Dispose()
+        {   subscription.Dispose();
+            UserDialogs.Instance.HideLoading();
+        }
     }
 }

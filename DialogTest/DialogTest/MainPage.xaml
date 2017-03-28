@@ -6,8 +6,10 @@
              x:Class="DialogTest.MainPage">
     <StackLayout>
         <Button x:Name="ShowAlert" Text="Show Alert" HorizontalOptions="Center"/>
+        <Button x:Name="ShowAlertConfig" Text="Show Alert with Config" HorizontalOptions="Center"/>
         <Button x:Name="ShowToast" Text="Show Toast" HorizontalOptions="Center"/>
         <Button x:Name="ShowSpinner" Text="Show Spinner" HorizontalOptions="Center"/>
+        <Button x:Name="ShowSpinnerDispose" Text="Show Spinner, close by disposing it" HorizontalOptions="Center"/>
     </StackLayout>
 
     
